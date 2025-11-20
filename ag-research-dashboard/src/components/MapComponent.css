@@ -1,0 +1,182 @@
+/* src/components/MapComponent.css */
+.map-controls-container {
+  position: absolute;
+  top: 60px; /* Back to original position */
+  left: 10px; /* Left side to avoid LayersControl overlap */
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  backdrop-filter: blur(5px);
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  cursor: pointer;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+}
+
+.filter-group input {
+  margin-right: 8px;
+}
+
+/* Container for the focus buttons */
+.focus-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between buttons */
+}
+
+.focus-btn {
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #000000; /* Mizzou Black */
+  color: #FDB719; /* Mizzou Gold */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.focus-btn:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Enhanced map styles */
+.leaflet-control-layers {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(5px);
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+.leaflet-control-layers-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Enhanced image overlay styles */
+.leaflet-image-layer {
+  transition: opacity 0.3s ease;
+}
+
+/* Reset view button enhancement */
+.reset-view-btn {
+  position: absolute;
+  z-index: 3000;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.reset-view-btn:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+/* Filter group improvements */
+.filter-group label {
+  transition: background-color 0.2s ease;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.filter-group label:hover {
+  background-color: rgba(253, 183, 25, 0.1);
+}
+
+.filter-group input[type="radio"] {
+  accent-color: #FDB719;
+}
+
+/* Control headers */
+.map-controls-container h4 {
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(253, 183, 25, 0.3);
+}
+
+/* LayersControl positioning adjustments */
+.leaflet-bottom.leaflet-right {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.leaflet-control-layers {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* RGB Channel Controls - positioned near LayersControl */
+.rgb-channel-control {
+  position: absolute;
+  z-index: 1000;
+  bottom: 10px;
+  right: 10px;
+  margin-bottom: 120px; /* Above LayersControl */
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid #ccc;
+  min-width: 90px;
+}
+
+.rgb-channel-control h4 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.rgb-channel-control label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 11px;
+  margin-bottom: 6px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.rgb-channel-control label:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.rgb-channel-control label:last-child {
+  margin-bottom: 0;
+}
+
+.rgb-channel-control input[type="checkbox"] {
+  margin-right: 6px;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>24-Hour Data Test</title>
+    <script>
+        async function test24HourData() {
+            try {
+                console.log('=== TESTING 24-HOUR DATA COVERAGE ===');
+                
+                const response = await fetch('http://127.0.0.1:5000/api/live/z6-23000');
+                const data = await response.json();
+                
+                // Test Temperature Data
+                const tempReadings = data['Air Temperature'] || [];
+                console.log('\n=== TEMPERATURE DATA ===');
+                console.log(`Total readings: ${tempReadings.length}`);
+                
+                if (tempReadings.length > 0) {
+                    const firstTemp = new Date(tempReadings[tempReadings.length - 1].time);
+                    const lastTemp = new Date(tempReadings[0].time);
+                    const tempHours = (lastTemp - firstTemp) / (1000 * 60 * 60);
+                    
+                    console.log(`First reading: ${firstTemp.toLocaleString()}`);
+                    console.log(`Last reading: ${lastTemp.toLocaleString()}`);
+                    console.log(`Coverage: ${tempHours.toFixed(1)} hours`);
+                    
+                    // Test 24-hour filtering
+                    const now = new Date();
+                    const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+                    const last24Hours = tempReadings.filter(reading => {
+                        const readingTime = new Date(reading.time);
+                        return readingTime >= twentyFourHoursAgo;
+                    });
+                    
+                    console.log(`Readings in last 24 hours: ${last24Hours.length}`);
+                    console.log(`24-hour cutoff time: ${twentyFourHoursAgo.toLocaleString()}`);
+                }
+                
+                // Test Solar Radiation Data
+                const solarReadings = data['Solar Radiation'] || [];
+                console.log('\n=== SOLAR RADIATION DATA ===');
+                console.log(`Total readings: ${solarReadings.length}`);
+                
+                if (solarReadings.length > 0) {
+                    const firstSolar = new Date(solarReadings[solarReadings.length - 1].time);
+                    const lastSolar = new Date(solarReadings[0].time);
+                    const solarHours = (lastSolar - firstSolar) / (1000 * 60 * 60);
+                    
+                    console.log(`First reading: ${firstSolar.toLocaleString()}`);
+                    console.log(`Last reading: ${lastSolar.toLocaleString()}`);
+                    console.log(`Coverage: ${solarHours.toFixed(1)} hours`);
+                    
+                    // Test 24-hour filtering
+                    const now = new Date();
+                    const twentyFourHoursAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
+                    const last24Hours = solarReadings.filter(reading => {
+                        const readingTime = new Date(reading.time);
+                        return readingTime >= twentyFourHoursAgo;
+                    });
+                    
+                    console.log(`Readings in last 24 hours: ${last24Hours.length}`);
+                }
+                
+                document.getElementById('results').innerHTML = `
+                    <h2>24-Hour Data Test Results</h2>
+                    <p><strong>Temperature:</strong> ${tempReadings.length} total readings</p>
+                    <p><strong>Solar Radiation:</strong> ${solarReadings.length} total readings</p>
+                    <p><strong>Status:</strong> ${tempReadings.length >= 24 && solarReadings.length >= 24 ? '✅ Sufficient data for 24-hour charts' : '⚠️ May need more data'}</p>
+                    <p>Check browser console for detailed analysis</p>
+                `;
+                
+            } catch (error) {
+                console.error('Error testing data:', error);
+                document.getElementById('results').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+        
+        window.onload = test24HourData;
+    </script>
+</head>
+<body>
+    <h1>24-Hour Data Coverage Test</h1>
+    <div id="results">Testing...</div>
+    <button onclick="test24HourData()">Retest</button>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* src/components/Footer.css */
+.footer {
+  height: 40px;
+  background-color: #000000; /* Mizzou Black */
+  color: #FFFFFF; /* White for contrast */
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.footer-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+}

@@ -1,0 +1,45 @@
+# Node modules
+backend/node_modules/
+dashboard/node_modules/
+dashboard/nodejs
+nrnenv/
+.zencoder/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+backend/package-lock.json
+dashboard/package-lock.json
+backend/yarn.lock
+dashboard/yarn.lock
+
+# Build output
+backend/dist/
+dashboard/dist/
+backend/build/
+dashboard/build/
+
+# Environment files
+backend/.env
+dashboard/.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Coverage reports
+coverage/
+backend/coverage/
+dashboard/coverage/

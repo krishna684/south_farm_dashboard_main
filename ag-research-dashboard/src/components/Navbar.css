@@ -1,0 +1,223 @@
+/* src/components/Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 70px;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-bottom: 2px solid #FDB719;
+  z-index: 1000;
+  position: relative;
+}
+
+/* Brand Section */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  font-size: 2em;
+  filter: drop-shadow(0 2px 4px rgba(253, 183, 25, 0.3));
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #FDB719;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.brand-subtitle {
+  font-size: 0.75em;
+  color: #cccccc;
+  font-weight: 400;
+  line-height: 1;
+}
+
+
+
+/* Actions Section */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.status-indicators {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  animation: pulse 2s infinite;
+}
+
+.status-dot.offline {
+  background: #f44336;
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
+}
+
+.status-text {
+  font-size: 0.8em;
+  color: #cccccc;
+  font-weight: 500;
+}
+
+.datetime-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.time {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #FDB719;
+  font-family: 'Courier New', monospace;
+}
+
+.date {
+  font-size: 0.75em;
+  color: #888888;
+  font-weight: 400;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.weather-station-btn,
+.control-dashboard-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.weather-station-btn {
+  background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+  color: white;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.weather-station-btn:hover {
+  background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.control-dashboard-btn {
+  background: linear-gradient(135deg, #FDB719 0%, #F57C00 100%);
+  color: #000000;
+  border: 1px solid rgba(253, 183, 25, 0.3);
+}
+
+.control-dashboard-btn:hover {
+  background: linear-gradient(135deg, #F57C00 0%, #E65100 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(253, 183, 25, 0.4);
+}
+
+.btn-icon {
+  font-size: 1em;
+}
+
+.btn-text {
+  font-size: 0.9em;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 0 24px;
+  }
+  
+  .nav-links {
+    gap: 4px;
+  }
+  
+  .nav-link {
+    padding: 6px 12px;
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 900px) {
+  .status-indicators {
+    gap: 12px;
+  }
+  
+  .datetime-display {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 16px;
+    height: 60px;
+  }
+  
+  .brand-subtitle {
+    display: none;
+  }
+  
+  .btn-text {
+    display: none;
+  }
+  
+  .weather-station-btn,
+  .control-dashboard-btn {
+    padding: 8px;
+    min-width: 40px;
+    justify-content: center;
+  }
+  
+  .system-status .status-text {
+    display: none;
+  }
+}

@@ -1,0 +1,273 @@
+/* General body and font setup */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-top: 0; /* Remove any top margin since navbar is now taller */
+}
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  overflow: hidden; /* Prevents scrollbars on the body */
+}
+
+/* --- Main Application Layout --- */
+
+
+/* Vertically stacks Navbar, Main Content, and Footer */
+.app-container {
+  display: flex;
+  flex-direction: column; 
+  height: 100vh;
+}
+
+/* Container for the side-by-side map and overview panes */
+.main-content {
+  flex-grow: 1; /* Takes up all available vertical space */
+  display: flex;
+  overflow: hidden; 
+}
+
+/* The map pane (left side) */
+.map-pane {
+  flex: 1; 
+}
+
+/* The weather overview pane (right side) */
+.overview-pane {
+  flex: 2;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: #f4f4f9;
+}
+
+
+/* --- Component-Specific Styles --- */
+/* In src/App.css, update the following rules */
+
+/* Add a branded border to the overview panel title */
+.overview-panel h2 {
+  margin-top: 0;
+  border-bottom: 2px solid #FDB719; /* Mizzou Gold */
+  padding-bottom: 10px;
+}
+
+/* Make the main text in the conditions panel black */
+.condition-item .value {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  color: #000000; /* Mizzou Black */
+}
+
+/* Update the "View Data" button in the map popup */
+.leaflet-popup-content button {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+  background-color: #FDB719; /* Mizzou Gold */
+  color: #000000; /* Mizzou Black */
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+/* In src/App.css, replace the old .current-conditions rule with this new one */
+
+.current-conditions-grid {
+  display: grid;
+  /* Create a responsive grid that shows 2 or 3 columns depending on width */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* You can remove the old .current-conditions rule if you wish */
+
+/* Add a style for the time subtitle */
+.overview-time {
+  display: block;
+  font-size: 0.6em;
+  font-weight: normal;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* Adjust the .condition-item styles for better readability */
+.condition-item {
+  text-align: left;
+}
+
+.condition-item .label {
+  font-size: 0.9em;
+  color: #666;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.condition-item .value {
+  display: block;
+  font-size: 1.5em; /* Slightly smaller font for more data */
+  font-weight: bold;
+  color: #000000;
+}
+
+/* NEW empty div for chart container */
+.chart-container {
+  margin-top: 20px;
+}
+
+/* ... other existing styles ... */
+
+.hourly-charts-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Stack charts vertically by default */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.chart-wrapper {
+  height: 300px; /* Adjust as needed */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* For larger screens, you might want to display charts in a 2-column layout */
+@media (min-width: 768px) {
+  .hourly-charts-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  /* Adjust further for very large screens if necessary */
+}
+
+.table-container {
+  margin-bottom: 30px;
+  overflow-x: auto; /* Allows horizontal scrolling on small screens */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f9; /* Light gray header */
+  font-weight: bold;
+  color: #333;
+}
+
+tbody tr {
+  background-color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Zebra striping */
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1; /* Hover effect */
+}
+
+/* Style for the 'Current' time row */
+.current-time-row {
+  font-weight: bold;
+  color: #000;
+  background-color: #e8f5e9 !important; /* A light green to highlight */
+}
+.table-footnote {
+  font-size: 0.85em;
+  color: #555;
+  margin-top: 10px;
+  padding-left: 5px; /* Aligns with table content padding */
+  font-style: italic;
+  text-align: left;
+}
+
+/* Charts Section Styles */
+.charts-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #FDB719; /* Mizzou Gold separator */
+}
+
+.charts-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.3em;
+}
+
+.single-chart-container {
+  height: 450px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* Dual chart row for side-by-side charts */
+.dual-chart-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.half-chart-container {
+  flex: 1;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Responsive chart layouts */
+@media (max-width: 1200px) {
+  .dual-chart-row {
+    flex-direction: column;
+  }
+  
+  .half-chart-container {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .single-chart-container {
+    height: 350px;
+    padding: 15px;
+  }
+  
+  .half-chart-container {
+    height: 300px;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Loading Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-container { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .image-preview { max-width: 200px; max-height: 150px; margin: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>RGB Band Image Loading Test</h1>
+    
+    <div id="testResults"></div>
+    
+    <button onclick="runTests()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Run Image Tests</button>
+
+    <script>
+        const imagePaths = [
+            '/images/New_08_08_2025_transparent_reflectance_red.png',
+            '/images/New_08_08_2025_transparent_reflectance_green.png',
+            '/images/New_08_08_2025_transparent_reflectance_blue.png'
+        ];
+        
+        function testImageLoad(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve({ success: true, width: img.naturalWidth, height: img.naturalHeight, src });
+                img.onerror = () => resolve({ success: false, error: 'Failed to load', src });
+                img.src = src;
+            });
+        }
+        
+        async function runTests() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<p>🔄 Testing image loading...</p>';
+            
+            const results = await Promise.all(imagePaths.map(testImageLoad));
+            
+            let html = '';
+            let allSuccess = true;
+            
+            results.forEach((result, index) => {
+                const band = ['Red', 'Green', 'Blue'][index];
+                const className = result.success ? 'success' : 'error';
+                
+                if (!result.success) allSuccess = false;
+                
+                html += `
+                    <div class="test-container ${className}">
+                        <h3>${band} Band Test</h3>
+                        <p><strong>Path:</strong> ${result.src}</p>
+                        ${result.success ? 
+                            `<p>✅ <strong>Success!</strong> Image loaded: ${result.width}x${result.height}px</p>
+                             <img src="${result.src}" class="image-preview" alt="${band} band">` :
+                            `<p>❌ <strong>Failed:</strong> ${result.error}</p>`
+                        }
+                    </div>
+                `;
+            });
+            
+            const summaryClass = allSuccess ? 'success' : 'error';
+            const summaryText = allSuccess ? 
+                '✅ All RGB band images loaded successfully! MapComponent should work properly.' :
+                '❌ Some images failed to load. MapComponent may show errors.';
+                
+            html = `<div class="test-container ${summaryClass}"><h2>${summaryText}</h2></div>` + html;
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        // Auto-run tests on page load
+        window.addEventListener('load', runTests);
+    </script>
+</body>
+</html>

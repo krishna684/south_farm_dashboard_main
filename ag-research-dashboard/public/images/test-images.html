@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RGB Band Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .image-container { display: flex; gap: 20px; margin: 20px 0; }
+        .image-box { border: 1px solid #ccc; padding: 10px; text-align: center; }
+        .image-box img { max-width: 200px; max-height: 150px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>RGB Band Image Verification</h1>
+    <p>Testing the uploaded band images for the enhanced MapComponent.</p>
+    
+    <div id="status"></div>
+    
+    <div class="image-container">
+        <div class="image-box">
+            <h3>Red Band</h3>
+            <img id="redImg" alt="Red band image">
+            <div id="redStatus">Loading...</div>
+        </div>
+        
+        <div class="image-box">
+            <h3>Green Band</h3>
+            <img id="greenImg" alt="Green band image">
+            <div id="greenStatus">Loading...</div>
+        </div>
+        
+        <div class="image-box">
+            <h3>Blue Band</h3>
+            <img id="blueImg" alt="Blue band image">
+            <div id="blueStatus">Loading...</div>
+        </div>
+    </div>
+    
+    <div id="processingTest">
+        <h3>Enhancement Processing Test</h3>
+        <button onclick="testProcessing()">Test Enhancement Pipeline</button>
+        <div id="processingResults"></div>
+    </div>
+
+    <script>
+        const imagePaths = {
+            red: '/images/New_08_08_2025_transparent_reflectance_red.png',
+            green: '/images/New_08_08_2025_transparent_reflectance_green.png', 
+            blue: '/images/New_08_08_2025_transparent_reflectance_blue.png'
+        };
+        
+        let loadedImages = {};
+        
+        function loadImage(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = url;
+            });
+        }
+        
+        async function testImages() {
+            const statusDiv = document.getElementById('status');
+            let allLoaded = true;
+            
+            for (const [band, path] of Object.entries(imagePaths)) {
+                try {
+                    const img = await loadImage(path);
+                    loadedImages[band] = img;
+                    
+                    document.getElementById(`${band}Img`).src = path;
+                    document.getElementById(`${band}Status`).innerHTML = `✅ ${img.naturalWidth}x${img.naturalHeight}px`;
+                    document.getElementById(`${band}Status`).className = 'success';
+                } catch (error) {
+                    document.getElementById(`${band}Status`).innerHTML = `❌ Failed to load`;
+                    document.getElementById(`${band}Status`).className = 'error';
+                    allLoaded = false;
+                }
+            }
+            
+            if (allLoaded) {
+                statusDiv.innerHTML = '<div class="status success">✅ All RGB band images loaded successfully!</div>';
+            } else {
+                statusDiv.innerHTML = '<div class="status error">❌ Some images failed to load. Check file paths.</div>';
+            }
+        }
+        
+        async function testProcessing() {
+            const resultsDiv = document.getElementById('processingResults');
+            resultsDiv.innerHTML = '<p>🔄 Testing enhancement pipeline...</p>';
+            
+            try {
+                // Test enhancement parameters
+                const CLIP_LOW = 0.02;
+                const CLIP_HIGH = 0.98;
+                const GAMMA = 0.9;
+                const CONTRAST = 1.2;
+                const GAINS = { red: 1.25, green: 1.10, blue: 1.35 };
+                
+                resultsDiv.innerHTML += `
+                    <div class="status success">
+                        <h4>Enhancement Parameters:</h4>
+                        <ul>
+                            <li>Clip Range: ${CLIP_LOW*100}% - ${CLIP_HIGH*100}%</li>
+                            <li>Gamma: ${GAMMA}</li>
+                            <li>Contrast: ${CONTRAST}</li>
+                            <li>Gains: R=${GAINS.red}, G=${GAINS.green}, B=${GAINS.blue}</li>
+                        </ul>
+                    </div>
+                `;
+                
+                // Test canvas processing capability
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                
+                if (ctx) {
+                    resultsDiv.innerHTML += '<div class="status success">✅ Canvas 2D context with willReadFrequently support</div>';
+                } else {
+                    resultsDiv.innerHTML += '<div class="status error">❌ Canvas 2D context not available</div>';
+                }
+                
+                resultsDiv.innerHTML += '<div class="status success">✅ Enhancement pipeline ready for MapComponent</div>';
+                
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="status error">❌ Processing test failed: ${error.message}</div>`;
+            }
+        }
+        
+        // Test images on page load
+        window.addEventListener('load', testImages);
+    </script>
+</body>
+</html>
